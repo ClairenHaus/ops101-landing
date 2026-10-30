@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-block:env(safe-area-inset-top,0px) env(safe-area-inset-bottom,0px)}</style>
+<title>Operations 101 | Clairen Haus</title>
+<meta name="description" content="Take the free Operations Health Scorecard. Twelve questions, three minutes, and a plan for the one thing to fix first in your solo service business.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<style>
+/* Layout: one long page. Hero (copy left, animated example result right), proof, six areas, how it works, who it is for, about, a scrolling strip of the twelve topics, then the live scorecard. A sticky button follows on phones. */
+:root{
+  color-scheme:dark;
+  --bg:#080812;
+  --surface:#10101f;
+  --surface-2:#171730;
+  --line:#272746;
+  --fg:#F1F2FA;
+  --muted:#A0A3BF;
+  --teal:#19D3C5;
+  --blue:#4C86FF;
+  --purple:#8F63F5;
+  --orange:#FF8C32;
+  --on-orange:#1a0d00;
+  --font-display:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-body:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.55 var(--font-body);
+  padding-block:20px 96px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto}
+.col{max-width:720px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-display);margin:0;text-wrap:balance}
+p{margin:0}
+button,input{font:inherit;color:inherit}
+a{color:var(--teal)}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:6px}
+
+.bars{display:grid;gap:4px;margin-bottom:22px}
+.bars i{display:block;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--purple));transform-origin:left;animation:bar 7s ease-in-out infinite}
+.bars i:nth-child(1){width:100%}.bars i:nth-child(2){width:62%;animation-delay:.4s}.bars i:nth-child(3){width:34%;animation-delay:.8s}
+@keyframes bar{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.8)}}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:clamp(28px,6vw,56px)}
+.brand{font:800 13px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase}
+.tag{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:14px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 28px;border:0;border-radius:12px;background:var(--orange);color:var(--on-orange);font:700 16px var(--font-display);cursor:pointer;text-decoration:none;transition:transform .15s ease,filter .15s ease,box-shadow .15s ease}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 8px 28px rgba(255,140,50,.28)}
+.btn:active{transform:none}
+.btn[disabled]{opacity:.6;cursor:progress}
+.linkbtn{background:none;border:0;padding:8px 0;color:var(--muted);cursor:pointer;font-size:14px;text-decoration:underline;text-underline-offset:3px}
+.linkbtn:hover{color:var(--fg)}
+
+/* reveal: readable at rest, lifts into place on scroll */
+.js .rv{opacity:.4;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* hero */
+.hero{display:grid;gap:40px;align-items:center;padding-bottom:clamp(40px,8vw,88px)}
+.hero h1{font-size:clamp(36px,8vw,64px);line-height:1.04;font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--teal),var(--blue) 55%,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{margin-top:20px;font-size:clamp(17px,2.4vw,20px);color:var(--muted);max-width:50ch}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:30px}
+.hero-cta span{font-size:14px;color:var(--muted)}
+.loop{position:relative;margin-top:40px;max-width:460px}
+.loop ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.loop li{display:flex;flex-direction:column;align-items:center;gap:10px;font-size:12px;color:var(--muted);text-align:center;position:relative;z-index:1}
+.loop li b{width:14px;height:14px;border-radius:50%;background:var(--surface-2);border:2px solid var(--line);animation:glow 7.5s ease-in-out infinite}
+.loop li:nth-child(2) b{animation-delay:1.5s}.loop li:nth-child(3) b{animation-delay:3s}.loop li:nth-child(4) b{animation-delay:4.5s}.loop li:nth-child(5) b{animation-delay:6s}
+.loop .rail{position:absolute;left:10%;right:10%;top:8px;height:2px;background:var(--line)}
+.loop .pulse{position:absolute;top:2px;left:10%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--teal);box-shadow:0 0 16px 4px rgba(25,211,197,.55);animation:travel 7.5s linear infinite}
+@keyframes travel{0%{left:10%;opacity:1}80%{left:90%;opacity:1}90%,100%{left:90%;opacity:0}}
+@keyframes glow{0%,9%,100%{background:var(--surface-2);border-color:var(--line)}2%,6%{background:var(--teal);border-color:var(--teal)}}
+
+.demo{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,30px);box-shadow:0 30px 80px rgba(76,134,255,.08)}
+.demo .lab{display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.demo .lab b{font-weight:600;color:var(--orange)}
+.demo-top{display:flex;align-items:center;gap:20px}
+.hring{width:112px;height:112px;flex:none}
+.hring text{font-family:var(--font-display)}
+.demo-top h3{font-size:20px;line-height:1.2}
+.demo-top p{font-size:14px;color:var(--muted);margin-top:4px}
+.mini{display:grid;gap:12px;margin-top:22px}
+.mrow{display:grid;grid-template-columns:104px 1fr 34px;gap:12px;align-items:center;font-size:13px}
+.mrow .n{font-weight:600}
+.mrow .b{height:7px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.mrow .b i{display:block;height:100%;border-radius:4px}
+.mrow .v{text-align:right;color:var(--muted);font-variant-numeric:tabular-nums}
+.c-gap{background:var(--orange)}.c-build{background:var(--blue)}.c-solid{background:var(--teal)}
+
+/* sections */
+.sec{padding-block:clamp(44px,8vw,88px);border-top:1px solid var(--line)}
+.sec h2{font-size:clamp(26px,5vw,40px);line-height:1.1;font-weight:800;letter-spacing:-.02em;max-width:22ch}
+.sec .sub{margin-top:14px;color:var(--muted);max-width:56ch;font-size:17px}
+.stats{display:grid;gap:16px;margin-top:32px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.stat .num{font:800 clamp(52px,9vw,76px)/1 var(--font-display);letter-spacing:-.03em;background:linear-gradient(90deg,var(--teal),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.stat p{margin-top:12px;font-size:16px}
+.stat small{display:block;margin-top:10px;font-size:13px;color:var(--muted)}
+.stat small a{color:var(--muted)}
+.close{margin-top:28px;font-size:18px;max-width:52ch}
+
+.areas{display:grid;gap:12px;margin-top:32px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.area{--i:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;animation:lit 9s ease-in-out infinite;animation-delay:calc(var(--i) * 1.5s)}
+.area h3{font-size:17px}
+.area p{margin-top:6px;font-size:14px;color:var(--muted)}
+@keyframes lit{0%,15%{border-color:var(--teal);background:rgba(25,211,197,.08)}18%,100%{border-color:var(--line);background:var(--surface)}}
+
+.steps{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));counter-reset:s}
+.steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 22px 22px 22px}
+.steps li::before{content:counter(s);display:block;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--purple));color:#06060f;font:800 14px/30px var(--font-display);text-align:center;margin-bottom:14px}
+.steps h3{font-size:18px}
+.steps p{margin-top:6px;color:var(--muted);font-size:15px}
+
+.fit{display:grid;gap:16px;margin-top:32px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.fit>div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+.fit h3{font-size:16px;letter-spacing:.06em;text-transform:uppercase}
+.fit .yes h3{color:var(--teal)}.fit .no h3{color:var(--muted)}
+.fit ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:10px}
+.fit li{padding-left:22px;position:relative;font-size:15px}
+.fit .yes li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.fit .no li::before{content:"";position:absolute;left:0;top:.55em;width:8px;height:2px;background:var(--muted)}
+.fit .no li{color:var(--muted)}
+
+.about{display:grid;gap:24px;grid-template-columns:1fr}
+.about p{font-size:18px;max-width:58ch}
+.about p+p{margin-top:16px;color:var(--muted)}
+.sign{font:700 15px var(--font-display);margin-top:20px}
+
+.strip{display:flex;gap:12px;margin-top:32px;overflow-x:auto;padding-bottom:14px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
+.mon{flex:0 0 200px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.mon b{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:600}
+.mon h3{font-size:16px;line-height:1.25;margin-top:8px}
+.mon.now{border-color:var(--teal);background:rgba(25,211,197,.07)}
+.strip-note{margin-top:8px;font-size:13px;color:var(--muted)}
+
+/* scorecard */
+#scorecard{scroll-margin-top:16px}
+.pre{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:clamp(24px,5vw,44px);text-align:left}
+.pre h2{max-width:20ch}
+.pre .sub{margin-bottom:24px}
+.meta-row{display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:26px;font-size:14px;color:var(--muted)}
+.meta-row span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--teal);margin-right:8px;vertical-align:middle}
+.enter{animation:rise .4s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qhead{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);margin-bottom:10px;font-variant-numeric:tabular-nums}
+.qhead .cat{text-transform:uppercase;letter-spacing:.12em;font-size:12px;color:var(--teal);font-weight:600}
+.track{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden;margin-bottom:28px}
+.fill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--teal),var(--blue),var(--purple));transition:width .45s ease}
+.qcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(20px,4vw,32px)}
+.qcard h2{font-size:clamp(21px,4.4vw,27px);line-height:1.25;font-weight:700;letter-spacing:0;max-width:none}
+.hint{margin-top:8px;font-size:14px;color:var(--muted)}
+.opts{display:grid;gap:10px;margin-top:22px}
+.opt{display:flex;align-items:flex-start;gap:14px;width:100%;text-align:left;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);cursor:pointer;transition:border-color .15s,background .15s,transform .15s}
+.opt:hover{border-color:var(--blue);transform:translateX(2px)}
+.opt .k{flex:none;width:24px;height:24px;border-radius:6px;border:1px solid var(--line);font:600 12px/22px var(--font-body);text-align:center;color:var(--muted)}
+.opt.sel{border-color:var(--teal);background:rgba(25,211,197,.1)}
+.opt.sel .k{background:var(--teal);border-color:var(--teal);color:#04100f}
+.qfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;min-height:36px}
+
+.res-top{display:grid;grid-template-columns:auto 1fr;gap:24px 32px;align-items:center}
+.ring{width:160px;height:160px}
+.ring text{font-family:var(--font-display)}
+.tier h1{font-size:clamp(28px,6vw,40px);line-height:1.1;font-weight:800;letter-spacing:-.02em}
+.tier p{margin-top:12px;color:var(--muted);max-width:46ch}
+.rsect{margin-top:44px}
+.rsect h2{font-size:20px;font-weight:700;margin-bottom:6px;letter-spacing:0;max-width:none}
+.rsect .sub2{font-size:14px;color:var(--muted);margin-bottom:18px}
+.radar-wrap{display:flex;justify-content:center}
+#radar{width:100%;max-width:420px;height:auto;overflow:visible}
+#radar .lbl{font:600 12px var(--font-body);fill:var(--muted)}
+.rows{display:grid;gap:16px}
+.row{display:grid;grid-template-columns:110px 1fr auto;gap:6px 14px;align-items:center}
+.row .name{font-weight:600;font-size:15px}
+.row .bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.row .bar i{display:block;height:100%;width:0;border-radius:4px;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.row .val{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;min-width:92px;text-align:right}
+.row .val b{font-weight:600}
+.lv-gap i{background:var(--orange)}.lv-gap .val b{color:var(--orange)}
+.lv-build i{background:var(--blue)}.lv-build .val b{color:var(--blue)}
+.lv-solid i{background:var(--teal)}.lv-solid .val b{color:var(--teal)}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:clamp(20px,4vw,32px)}
+.plan .kick{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px}
+.plan h2{font-size:clamp(22px,4.6vw,28px);margin-bottom:8px;max-width:none}
+.plan .why{color:var(--muted);max-width:52ch}
+.fine{margin-top:10px;font-size:13px;color:var(--muted)}
+.actions{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px;counter-reset:a}
+.actions li{counter-increment:a;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;align-items:start;padding:14px 16px;border-radius:12px;background:var(--surface-2);border:1px solid var(--line)}
+.actions li::before{content:counter(a);width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--purple));color:#06060f;font:800 13px/26px var(--font-display);text-align:center}
+.actions .t{grid-column:2}
+.actions em{grid-column:2;font-style:normal;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.after{margin-top:18px;font-size:14px;color:var(--muted)}
+.after b{color:var(--fg);font-weight:600}
+.cta-box{margin-top:44px;padding:24px;border-radius:16px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(25,211,197,.08),rgba(143,99,245,.1))}
+.cta-box h3{font-size:20px;margin-bottom:6px}
+.cta-box p{color:var(--muted);margin-bottom:16px}
+.retake{margin-top:28px;text-align:center}
+
+footer{margin-top:24px;padding-top:28px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;font-size:13px;color:var(--muted)}
+footer b{color:var(--fg);font-weight:600}
+
+/* sticky call to action */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(8,8,18,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s ease}
+.sticky.show{transform:none}
+.sticky span{font-size:14px;color:var(--muted)}
+.sticky .btn{min-height:46px;padding:0 20px;font-size:15px}
+
+@media (min-width:860px){
+  .hero{grid-template-columns:1.1fr .9fr;gap:56px}
+  .about{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .res-top{grid-template-columns:1fr;justify-items:start}
+  .row{grid-template-columns:1fr auto}
+  .row .bar{grid-column:1 / -1;order:3}
+  .sticky span{display:none}
+  .sticky .btn{width:100%}
+  .mrow{grid-template-columns:96px 1fr 30px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  .loop .pulse{display:none}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+<script>document.documentElement.className+=" js";</script>
+</head>
+<body>
+<div class="wrap">
+  <div class="bars" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="top"><span class="brand">Clairen Haus</span><span class="tag">Operations 101</span></div>
+
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Operations 101 for solo service owners</p>
+      <h1>Find out where your business <em>leaks time and money.</em></h1>
+      <p class="lede">Twelve questions. Three minutes. You get a score, a map of six areas of your business, and the one thing to fix first.</p>
+      <div class="hero-cta">
+        <button class="btn js-start" type="button" id="heroStart">Take the scorecard</button>
+        <span>Free. No setup. Built for solo service businesses.</span>
+      </div>
+      <div class="loop" aria-hidden="true">
+        <div class="rail"></div><div class="pulse"></div>
+        <ol><li><b></b>Inquiry</li><li><b></b>Onboard</li><li><b></b>Deliver</li><li><b></b>Invoice</li><li><b></b>Paid</li></ol>
+      </div>
+    </div>
+
+    <div class="demo" aria-label="Example scorecard result">
+      <div class="lab"><span>Your result looks like this</span><b>Example</b></div>
+      <div class="demo-top">
+        <svg class="hring" viewBox="0 0 140 140" role="img" aria-label="Example score 62 out of 100">
+          <defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--teal)"/><stop offset=".55" style="stop-color:var(--blue)"/><stop offset="1" style="stop-color:var(--purple)"/></linearGradient></defs>
+          <circle cx="70" cy="70" r="60" fill="none" stroke="var(--surface-2)" stroke-width="10"/>
+          <circle id="heroArc" cx="70" cy="70" r="60" fill="none" stroke="url(#hg)" stroke-width="10" stroke-linecap="round" transform="rotate(-90 70 70)" stroke-dasharray="376.99" stroke-dashoffset="143.26"/>
+          <text id="heroNum" x="70" y="78" text-anchor="middle" font-size="40" font-weight="800" fill="var(--fg)">62</text>
+        </svg>
+        <div><h3>Mostly solid</h3><p>Real structure, with specific gaps to close.</p></div>
+      </div>
+      <div class="mini" id="miniRows">
+        <div class="mrow"><span class="n">Cash</span><span class="b"><i class="c-solid" data-w="83" style="width:83%"></i></span><span class="v">5/6</span></div>
+        <div class="mrow"><span class="n">Pricing</span><span class="b"><i class="c-build" data-w="67" style="width:67%"></i></span><span class="v">4/6</span></div>
+        <div class="mrow"><span class="n">Numbers</span><span class="b"><i class="c-build" data-w="50" style="width:50%"></i></span><span class="v">3/6</span></div>
+        <div class="mrow"><span class="n">Client journey</span><span class="b"><i class="c-build" data-w="67" style="width:67%"></i></span><span class="v">4/6</span></div>
+        <div class="mrow"><span class="n">Capacity</span><span class="b"><i class="c-gap" data-w="33" style="width:33%"></i></span><span class="v">2/6</span></div>
+        <div class="mrow"><span class="n">Systems</span><span class="b"><i class="c-gap" data-w="17" style="width:17%"></i></span><span class="v">1/6</span></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="sec" aria-labelledby="h-problem">
+    <h2 id="h-problem" class="rv">Most solo businesses run on memory and effort.</h2>
+    <div class="stats">
+      <div class="stat rv">
+        <div class="num"><span data-count="59">59</span>%</div>
+        <p>of small businesses have invoices 30 or more days overdue.</p>
+        <small>QuickBooks, 2026 Small Business Late Payments Report. <a href="https://quickbooks.intuit.com/r/small-business-data/small-business-late-payments-report-2026/" target="_blank" rel="noopener">Source</a></small>
+      </div>
+      <div class="stat rv">
+        <div class="num"><span data-count="47">47</span>%</div>
+        <p>of small employer firms were profitable at the end of 2024.</p>
+        <small>Federal Reserve Banks, 2026 Report on Employer Firms. <a href="https://www.fedsmallbusiness.org/reports/survey/2026/2026-report-on-employer-firms" target="_blank" rel="noopener">Source</a></small>
+      </div>
+    </div>
+    <p class="close rv">Both come down to whether the business has a system you can see and run. That is what the scorecard measures.</p>
+  </section>
+
+  <section class="sec" aria-labelledby="h-areas">
+    <h2 id="h-areas" class="rv">Six areas. One clear picture.</h2>
+    <p class="sub rv">Each question maps to an area every service business depends on. Your scores show where you are strong and where the leaks are.</p>
+    <div class="areas">
+      <div class="area rv" style="--i:0"><h3>Cash</h3><p>Do you know your position every week?</p></div>
+      <div class="area rv" style="--i:1"><h3>Pricing</h3><p>Do you know your real hourly rate?</p></div>
+      <div class="area rv" style="--i:2"><h3>Numbers</h3><p>Which few figures do you check on a schedule?</p></div>
+      <div class="area rv" style="--i:3"><h3>Client journey</h3><p>What happens between a yes and the first day of work?</p></div>
+      <div class="area rv" style="--i:4"><h3>Capacity</h3><p>How many clients can you serve well?</p></div>
+      <div class="area rv" style="--i:5"><h3>Systems</h3><p>Could the business run for two weeks without you?</p></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-how">
+    <h2 id="h-how" class="rv">How it works</h2>
+    <ol class="steps">
+      <li class="rv"><h3>Answer 12 questions</h3><p>One per screen. Tap an answer or press 1 to 4. About three minutes.</p></li>
+      <li class="rv"><h3>See your score and shape</h3><p>An overall score, a chart of your six areas, and a plain label for each.</p></li>
+      <li class="rv"><h3>Get your first three steps</h3><p>Your plan for your weakest area opens as soon as you finish. Each step takes under an hour.</p></li>
+    </ol>
+  </section>
+
+  <section class="sec" aria-labelledby="h-fit">
+    <h2 id="h-fit" class="rv">Who this is for</h2>
+    <div class="fit">
+      <div class="yes rv"><h3>This is for you if</h3><ul>
+        <li>You run a service business alone, or with a contractor or two.</li>
+        <li>You have never managed a team and nobody taught you how a business runs.</li>
+        <li>You want a plan you can start this week, not a lecture.</li></ul></div>
+      <div class="no rv"><h3>This is not for</h3><ul>
+        <li>Product, inventory or e-commerce businesses.</li>
+        <li>Companies that already have a management layer and a full ops team.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-about">
+    <div class="about">
+      <div>
+        <p class="eyebrow rv">Who built this</p>
+        <h2 id="h-about" class="rv">Corporate operations, sized for one person.</h2>
+        <p class="rv" style="margin-top:20px">I spent nearly two decades running operations inside corporations. I owned P&amp;Ls, led cross-functional teams and standardized how work gets done.</p>
+        <p class="rv">Now I bring that discipline to solo owners, in a form one person can run. Operations is what I know.</p>
+        <p class="sign rv">Michelle Robinson, Founder and CEO, Clairen Haus</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" aria-labelledby="h-series">
+    <h2 id="h-series" class="rv">Then work through twelve topics at your own pace.</h2>
+    <p class="sub rv">Operations 101 is a self-paced course with twelve topics. Your scorecard sets the order, weakest area first, and every lesson ends with something you can do the same day.</p>
+    <div class="strip" role="list" tabindex="0" aria-label="The twelve topics, scroll sideways">
+      <div class="mon" role="listitem"><b>Topic 1</b><h3>Your Business Is a System</h3></div>
+      <div class="mon" role="listitem"><b>Topic 2</b><h3>Year-End Review and 2027 Plan</h3></div>
+      <div class="mon" role="listitem"><b>Topic 3</b><h3>KPIs and Reporting</h3></div>
+      <div class="mon" role="listitem"><b>Topic 4</b><h3>Cash Flow and Owner Pay</h3></div>
+      <div class="mon" role="listitem"><b>Topic 5</b><h3>Pricing and Profitability</h3></div>
+      <div class="mon" role="listitem"><b>Topic 6</b><h3>Your Operating Rhythm</h3></div>
+      <div class="mon" role="listitem"><b>Topic 7</b><h3>Capacity, Time and Energy</h3></div>
+      <div class="mon" role="listitem"><b>Topic 8</b><h3>The Client Journey Workflow</h3></div>
+      <div class="mon" role="listitem"><b>Topic 9</b><h3>SOPs for a Team of One</h3></div>
+      <div class="mon" role="listitem"><b>Topic 10</b><h3>Quality and Client Retention</h3></div>
+      <div class="mon" role="listitem"><b>Topic 11</b><h3>Tech Stack, Automation and AI</h3></div>
+      <div class="mon" role="listitem"><b>Topic 12</b><h3>Getting Help</h3></div>
+    </div>
+    <p class="strip-note">Scroll sideways to see all twelve topics. Your scorecard sets your order.</p>
+  </section>
+
+  <section class="sec" id="scorecard" aria-labelledby="h-take">
+    <div class="col">
+      <div id="pre" class="screen pre">
+        <p class="eyebrow">Operations Health Scorecard</p>
+        <h2 id="h-take">Ready to see where you stand?</h2>
+        <p class="sub">Answer honestly. Nothing here is graded against anyone else.</p>
+        <div class="meta-row"><span>12 questions</span><span>About 3 minutes</span><span>Your plan right away</span></div>
+        <button class="btn js-start" type="button" id="preStart">Start the scorecard</button>
+      </div>
+
+      <div id="quiz" class="screen" hidden aria-live="polite">
+        <div class="qhead"><span id="qcount">Question 1 of 12</span><span class="cat" id="qcat">Cash</span></div>
+        <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" id="track"><div class="fill" id="fill"></div></div>
+        <div class="qcard" id="qcard">
+          <h2 id="qtext" tabindex="-1"></h2>
+          <p class="hint" id="qhint"></p>
+          <div class="opts" id="opts"></div>
+        </div>
+        <div class="qfoot"><button class="linkbtn" id="backBtn" type="button">Back</button><span class="tag">Tip: press 1 to 4</span></div>
+      </div>
+
+      <div id="results" class="screen" hidden aria-labelledby="resTitle">
+        <div class="res-top">
+          <svg class="ring" viewBox="0 0 140 140" role="img" aria-label="Overall score" id="ring">
+            <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--teal)"/><stop offset=".55" style="stop-color:var(--blue)"/><stop offset="1" style="stop-color:var(--purple)"/></linearGradient></defs>
+            <circle cx="70" cy="70" r="60" fill="none" stroke="var(--surface-2)" stroke-width="10"/>
+            <circle id="ringArc" cx="70" cy="70" r="60" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" transform="rotate(-90 70 70)" stroke-dasharray="376.99" stroke-dashoffset="376.99"/>
+            <text id="ringNum" x="70" y="76" text-anchor="middle" font-size="38" font-weight="800" fill="var(--fg)">0</text>
+            <text x="70" y="96" text-anchor="middle" font-size="11" fill="var(--muted)">out of 100</text>
+          </svg>
+          <div class="tier">
+            <p class="eyebrow">Your result</p>
+            <h1 id="resTitle" tabindex="-1"></h1>
+            <p id="resBody"></p>
+          </div>
+        </div>
+        <div class="rsect">
+          <h2>Your shape</h2>
+          <p class="sub2">The further a point reaches toward the edge, the stronger that area is.</p>
+          <div class="radar-wrap"><svg id="radar" viewBox="0 0 340 320" role="img" aria-label="Radar chart of six scores"></svg></div>
+        </div>
+        <div class="rsect">
+          <h2>Area by area</h2>
+          <p class="sub2">Each area is scored out of 6.</p>
+          <div class="rows" id="rows"></div>
+        </div>
+        <div class="rsect"><div class="plan" id="plan"></div></div>
+        <div class="cta-box" id="ctaBox" hidden>
+          <h3>Want help fixing this first?</h3>
+          <p>Bring your result to a conversation and we will pick the first fix together.</p>
+          <a class="btn" id="ctaBtn" target="_blank" rel="noopener">Book a conversation</a>
+        </div>
+        <div class="cta-box" id="portalBox" style="display:none"><h3>Get your lesson plan</h3><p>Create a free account and your results set the order of your lessons, weakest area first.</p><a class="btn" id="portalBtn">Create your free account</a></div>
+        <div class="retake"><button class="linkbtn" id="retakeBtn" type="button">Retake the scorecard</button></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span><b>Clairen Haus LLC</b> &middot; Atlanta, GA</span>
+    <span>hello@clairenhaus.com</span>
+  </footer>
+</div>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <span>Three minutes. Free. Your plan right away.</span>
+  <button class="btn js-start" type="button" tabindex="-1" id="stickyBtn">Take the scorecard</button>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Set these before hosting. */
+  var CONFIG = {
+    BOOKING_URL: "",         /* link for the call to action under the results. Empty hides it. */
+    PORTAL_URL: "https://ops101-portal-production.up.railway.app",          /* address of the learning portal. Empty hides the account button. */
+    BOOKING_LABEL: "Book a conversation"
+  };
+
+  var CATS = [
+    {id:"cash", label:"Cash", topic:"Cash Flow and Owner Pay",
+     why:"When cash is invisible, every late invoice turns into a surprise.",
+     actions:[
+       ["Open your business account every Friday and write down the balance and what clients owe you.","15 minutes"],
+       ["Divide your balance by your monthly costs plus your own pay. The answer is your buffer in months. Write it at the top of the page.","15 minutes"],
+       ["List every unpaid invoice with its due date and send a reminder for anything past due.","30 minutes"]
+     ]},
+    {id:"pricing", label:"Pricing", topic:"Pricing and Profitability",
+     why:"Underpricing is the fastest leak to fix because the price is yours to set.",
+     actions:[
+       ["Add up last month's hours, including admin, sales and revisions. Divide your revenue by that total. That is your real hourly rate.","30 minutes"],
+       ["Pick your most common service and list what it costs you to deliver, counting your time.","30 minutes"],
+       ["Put your next price review on the calendar and write the rule for when prices go up.","10 minutes"]
+     ]},
+    {id:"numbers", label:"Numbers", topic:"KPIs and Reporting",
+     why:"Without a few numbers you check on a schedule, you decide on feelings.",
+     actions:[
+       ["Choose three numbers: revenue this month, cash on hand and open leads. Put them on one page.","20 minutes"],
+       ["Block 30 minutes every Friday to update those numbers. Put it on the calendar now.","5 minutes"],
+       ["Write down last month's three numbers as your baseline so next month has something to compare to.","15 minutes"]
+     ]},
+    {id:"journey", label:"Client journey", topic:"The Client Journey Workflow",
+     why:"The stretch between a yes and the first day of work is where clients decide how much to trust you.",
+     actions:[
+       ["Write every step from yes to first day of work as a numbered list. Include payment and access.","30 minutes"],
+       ["Turn that list into a welcome email you can send in two minutes.","30 minutes"],
+       ["Add a closing step: final delivery, one feedback question and a referral ask.","20 minutes"]
+     ]},
+    {id:"capacity", label:"Capacity", topic:"Capacity, Time and Energy",
+     why:"Your capacity sets how much you can earn at your current prices.",
+     actions:[
+       ["Count your working hours in a normal week and subtract admin and sales. What is left is your delivery time.","15 minutes"],
+       ["Divide delivery time by the hours your average client takes. The answer is your client limit.","15 minutes"],
+       ["Block one recurring hour each week for running the business and treat it like a client meeting.","10 minutes"]
+     ]},
+    {id:"systems", label:"Systems", topic:"SOPs for a Team of One",
+     why:"If the business only works while you are in the room, it cannot grow and it cannot rest.",
+     actions:[
+       ["List the five tasks you repeat most. Rank them by how directly they touch revenue.","20 minutes"],
+       ["Write the top one as a checklist the next time you do it.","30 minutes"],
+       ["Save it where you can find it in ten seconds, and note who could follow it if you were out.","15 minutes"]
+     ]}
+  ];
+
+  var Q = [
+    {c:"cash", t:"How do you keep track of cash and what clients owe you?", o:["I check when I get worried","I look at it once a month","I check every week","I check every week and I have a routine for late invoices"]},
+    {c:"cash", t:"If new income stopped today, how long could the business cover its costs and your pay?", o:["Under two weeks, or I don't know","About a month","Two to three months","More than three months"]},
+    {c:"pricing", t:"Do you know your real hourly rate, counting admin, sales and revisions?", o:["No idea","I have a rough guess","I worked it out once","I calculate it and review it every year"]},
+    {c:"pricing", t:"When did you last raise your prices?", o:["I never have","More than two years ago","Within the last two years","In the last 12 months, or I set prices from my numbers"]},
+    {c:"numbers", t:"How many numbers about your business do you check on a regular schedule?", o:["None","I look at revenue now and then","Three to five","Five or six, each with a target"]},
+    {c:"numbers", t:"How often do you step back and review the business itself, apart from doing the work?", o:["Almost never","When something breaks","Once a month","Every week, with a set agenda"]},
+    {c:"journey", t:"What happens between a client saying yes and the first day of work?", o:["I work it out each time","I have a rough habit","I follow a written checklist","A template or automation gives every client the same start"]},
+    {c:"journey", t:"How do you end a project?", o:["It fades out","I deliver and say thanks","I follow a set list of closing steps","Closing steps include a feedback question and a referral ask"]},
+    {c:"capacity", t:"Do you know the most clients you can take on and still deliver well?", o:["No","I go by gut feel","I have counted my hours","I know the number and I use it to say no"]},
+    {c:"capacity", t:"Over the last three months, how often did you work evenings or weekends to keep up?", o:["Almost every week","A few times a month","Once or twice","Rarely, and by choice"]},
+    {c:"systems", t:"If you were out for two weeks, could someone keep the business running?", o:["Not at all","Only with a long phone call from me","Partly, there are some notes","Yes, the instructions are written down"]},
+    {c:"systems", t:"How many of your repeat tasks are written down as a checklist or step-by-step guide?", o:["None","A few, in scattered notes","The main ones","Most of them, and I keep them current"]}
+  ];
+
+  var TIERS = [
+    {min:0,  name:"Running on memory", body:"Most of the business lives in your head. That is common this early, and every fix below is small."},
+    {min:35, name:"Held together by effort", body:"Parts of the business run on habit. A few fixes will give you a lot of time and calm back."},
+    {min:60, name:"Mostly solid", body:"You have real structure. The gaps are specific, and they are the next things to fix."},
+    {min:80, name:"Running like a business", body:"You have the basics. Your job now is keeping them current and building on them."}
+  ];
+
+  var reduce = false;
+  try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch(e){}
+  var $ = function(id){ return document.getElementById(id); };
+  var screens = {pre:$("pre"), quiz:$("quiz"), results:$("results")};
+  var idx = 0, answers = [], locked = false, result = null;
+
+  function tween(ms, step, done){
+    if (reduce){ step(1); if (done) done(); return; }
+    var t0 = null;
+    function f(ts){
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / ms);
+      step(1 - Math.pow(1 - p, 3));
+      if (p < 1) requestAnimationFrame(f); else if (done) done();
+    }
+    requestAnimationFrame(f);
+  }
+
+  /* page motion: hero ring, mini bars, counters, reveals, sticky button */
+  function heroIntro(){
+    if (reduce) return;
+    var arc = $("heroArc"), num = $("heroNum"), C = 376.99, target = 62;
+    var bars = document.querySelectorAll("#miniRows .b i");
+    for (var i = 0; i < bars.length; i++){ bars[i].style.transition = "none"; bars[i].style.width = "0%"; }
+    tween(1400, function(t){
+      num.textContent = String(Math.round(target * t));
+      arc.setAttribute("stroke-dashoffset", String(C * (1 - target / 100 * t)));
+    });
+    setTimeout(function(){
+      for (var j = 0; j < bars.length; j++){
+        bars[j].style.transition = "width .9s cubic-bezier(.2,.8,.2,1)";
+        bars[j].style.width = bars[j].getAttribute("data-w") + "%";
+      }
+    }, 350);
+  }
+
+  function countUp(el){
+    var to = parseInt(el.getAttribute("data-count"), 10);
+    if (reduce || isNaN(to)) return;
+    tween(1100, function(t){ el.textContent = String(Math.round(to * t)); });
+  }
+
+  if ("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (!en.isIntersecting) return;
+        en.target.classList.add("in");
+        var cs = en.target.querySelectorAll("[data-count]");
+        for (var i = 0; i < cs.length; i++) countUp(cs[i]);
+        io.unobserve(en.target);
+      });
+    }, {threshold:.15});
+    var rv = document.querySelectorAll(".rv");
+    for (var n = 0; n < rv.length; n++) io.observe(rv[n]);
+  } else {
+    var all = document.querySelectorAll(".rv");
+    for (var m = 0; m < all.length; m++) all[m].classList.add("in");
+  }
+
+  var sticky = $("sticky"), heroBtn = $("heroStart"), card = $("scorecard");
+  var heroGone = false, cardSeen = false;
+  function syncSticky(){
+    var on = heroGone && !cardSeen;
+    sticky.classList.toggle("show", on);
+    sticky.setAttribute("aria-hidden", on ? "false" : "true");
+    $("stickyBtn").setAttribute("tabindex", on ? "0" : "-1");
+  }
+  if ("IntersectionObserver" in window){
+    new IntersectionObserver(function(es){ heroGone = !es[0].isIntersecting && es[0].boundingClientRect.top < 0; syncSticky(); }).observe(heroBtn);
+    new IntersectionObserver(function(es){ cardSeen = es[0].isIntersecting; syncSticky(); }, {threshold:.05}).observe(card);
+  }
+
+  /* quiz */
+  function show(name, focusId, scroll){
+    Object.keys(screens).forEach(function(k){ screens[k].hidden = (k !== name); });
+    screens[name].classList.remove("enter");
+    void screens[name].offsetWidth;
+    screens[name].classList.add("enter");
+    if (scroll && card.scrollIntoView){ try { card.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}); } catch(e){ card.scrollIntoView(); } }
+    var f = $(focusId);
+    if (f) { try { f.focus({preventScroll:true}); } catch(e){ f.focus(); } }
+  }
+
+  function startQuiz(){
+    idx = 0; answers = []; result = null; locked = false;
+    show("quiz", "qtext", true);
+    renderQ();
+  }
+
+  function renderQ(){
+    var q = Q[idx], cat = CATS.filter(function(c){ return c.id === q.c; })[0];
+    $("qcount").textContent = "Question " + (idx + 1) + " of " + Q.length;
+    $("qcat").textContent = cat.label;
+    $("fill").style.width = (idx / Q.length * 100) + "%";
+    $("track").setAttribute("aria-valuenow", String(idx));
+    $("qtext").textContent = q.t;
+    $("qhint").textContent = "";
+    var box = $("opts");
+    box.innerHTML = "";
+    q.o.forEach(function(text, i){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "opt" + (answers[idx] === i ? " sel" : "");
+      var k = document.createElement("span"); k.className = "k"; k.textContent = String(i + 1);
+      var s = document.createElement("span"); s.textContent = text;
+      b.appendChild(k); b.appendChild(s);
+      b.addEventListener("click", function(){ choose(i); });
+      box.appendChild(b);
+    });
+    $("backBtn").style.visibility = idx === 0 ? "hidden" : "visible";
+    var qc = $("qcard");
+    qc.classList.remove("enter"); void qc.offsetWidth; qc.classList.add("enter");
+  }
+
+  function choose(i){
+    if (locked) return;
+    locked = true;
+    answers[idx] = i;
+    var btns = $("opts").children;
+    for (var n = 0; n < btns.length; n++) btns[n].classList.toggle("sel", n === i);
+    setTimeout(function(){
+      locked = false;
+      if (idx < Q.length - 1){ idx++; renderQ(); }
+      else { finish(); }
+    }, reduce ? 0 : 280);
+  }
+
+  document.addEventListener("keydown", function(e){
+    if (screens.quiz.hidden || e.metaKey || e.ctrlKey || e.altKey) return;
+    var n = parseInt(e.key, 10);
+    if (n >= 1 && n <= 4) { e.preventDefault(); choose(n - 1); }
+  });
+
+  var starts = document.querySelectorAll(".js-start");
+  for (var s = 0; s < starts.length; s++) starts[s].addEventListener("click", startQuiz);
+  $("backBtn").addEventListener("click", function(){ if (idx > 0 && !locked){ idx--; renderQ(); } });
+  $("retakeBtn").addEventListener("click", startQuiz);
+
+  /* scoring */
+  function level(s){ return s <= 2 ? {k:"gap", w:"Gap"} : (s <= 4 ? {k:"build", w:"Building"} : {k:"solid", w:"Solid"}); }
+  function compute(){
+    var sums = {};
+    CATS.forEach(function(c){ sums[c.id] = 0; });
+    Q.forEach(function(q, i){ sums[q.c] += (answers[i] || 0); });
+    var total = 0;
+    CATS.forEach(function(c){ total += sums[c.id]; });
+    var pct = Math.round(total / (Q.length * 3) * 100);
+    var tier = TIERS[0];
+    TIERS.forEach(function(t){ if (pct >= t.min) tier = t; });
+    var order = CATS.map(function(c, i){ return {c:c, s:sums[c.id], i:i}; })
+      .sort(function(a, b){ return a.s - b.s || a.i - b.i; });
+    return {sums:sums, total:total, pct:pct, tier:tier, order:order};
+  }
+
+  function finish(){
+    $("fill").style.width = "100%";
+    result = compute();
+    renderResults();
+    show("results", "resTitle", true);
+    animateResults();
+  }
+
+  /* radar */
+  var NS = "http://www.w3.org/2000/svg", CX = 170, CY = 160, R = 100;
+  function pt(i, f){
+    var a = -Math.PI / 2 + i * (2 * Math.PI / 6);
+    return [CX + R * f * Math.cos(a), CY + R * f * Math.sin(a)];
+  }
+  function el(name, attrs, parent){
+    var e = document.createElementNS(NS, name);
+    Object.keys(attrs).forEach(function(k){ e.setAttribute(k, attrs[k]); });
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  var radarShape = null, radarDots = [];
+  function buildRadar(){
+    var svg = $("radar");
+    svg.innerHTML = "";
+    var defs = el("defs", {}, svg);
+    var g = el("linearGradient", {id:"rgr", x1:"0", y1:"0", x2:"1", y2:"1"}, defs);
+    el("stop", {offset:"0", style:"stop-color:var(--teal)"}, g);
+    el("stop", {offset:"1", style:"stop-color:var(--purple)"}, g);
+    [1/3, 2/3, 1].forEach(function(f){
+      var p = CATS.map(function(c, i){ return pt(i, f).join(","); }).join(" ");
+      el("polygon", {points:p, fill:"none", stroke:"var(--line)", "stroke-width":"1"}, svg);
+    });
+    CATS.forEach(function(c, i){
+      var e = pt(i, 1);
+      el("line", {x1:CX, y1:CY, x2:e[0], y2:e[1], stroke:"var(--line)", "stroke-width":"1"}, svg);
+    });
+    radarShape = el("polygon", {points:CATS.map(function(){ return CX + "," + CY; }).join(" "), fill:"url(#rgr)", "fill-opacity":".35", stroke:"var(--teal)", "stroke-width":"2", "stroke-linejoin":"round"}, svg);
+    radarDots = CATS.map(function(){ return el("circle", {cx:CX, cy:CY, r:"4", fill:"var(--bg)", stroke:"var(--teal)", "stroke-width":"2"}, svg); });
+    CATS.forEach(function(c, i){
+      var p = pt(i, 1.28), cos = Math.cos(-Math.PI / 2 + i * Math.PI / 3);
+      var anchor = cos > 0.3 ? "start" : (cos < -0.3 ? "end" : "middle");
+      var t = el("text", {x:p[0], y:p[1] + 4, "text-anchor":anchor, "class":"lbl"}, svg);
+      t.textContent = c.label;
+    });
+  }
+  function drawRadar(t){
+    if (!result) return;
+    var pts = CATS.map(function(c, i){
+      var p = pt(i, result.sums[c.id] / 6 * t);
+      if (radarDots[i]){ radarDots[i].setAttribute("cx", p[0]); radarDots[i].setAttribute("cy", p[1]); }
+      return p[0].toFixed(1) + "," + p[1].toFixed(1);
+    }).join(" ");
+    radarShape.setAttribute("points", pts);
+  }
+
+  function renderResults(){
+    $("resTitle").textContent = result.tier.name;
+    $("resBody").textContent = result.tier.body;
+    $("ring").setAttribute("aria-label", "Overall score " + result.pct + " out of 100");
+    $("ringNum").textContent = "0";
+    $("ringArc").setAttribute("stroke-dashoffset", "376.99");
+    buildRadar();
+    drawRadar(0);
+    $("radar").setAttribute("aria-label", "Radar chart. " + CATS.map(function(c){ return c.label + " " + result.sums[c.id] + " of 6"; }).join(", "));
+    var rows = $("rows");
+    rows.innerHTML = "";
+    CATS.forEach(function(c){
+      var s = result.sums[c.id], lv = level(s);
+      var r = document.createElement("div");
+      r.className = "row lv-" + lv.k;
+      r.innerHTML = '<span class="name"></span><span class="bar"><i data-w="' + Math.round(s / 6 * 100) + '"></i></span><span class="val"><b>' + lv.w + '</b> ' + s + ' of 6</span>';
+      r.querySelector(".name").textContent = c.label;
+      rows.appendChild(r);
+    });
+    renderPlan();
+    var pb = $("portalBox");
+    if (CONFIG.PORTAL_URL){
+      pb.style.display = "";
+      $("portalBtn").setAttribute("href", CONFIG.PORTAL_URL.replace(/\/$/, "") + "/login?sc=" + CATS.map(function(c){ return c.id + "." + result.sums[c.id]; }).join("-"));
+    } else { pb.style.display = "none"; }
+
+    var cta = $("ctaBox");
+    if (CONFIG.BOOKING_URL){
+      cta.hidden = false;
+      $("ctaBtn").setAttribute("href", CONFIG.BOOKING_URL);
+      $("ctaBtn").textContent = CONFIG.BOOKING_LABEL;
+    } else { cta.hidden = true; }
+  }
+
+  function animateResults(){
+    var C = 376.99, target = result.pct;
+    tween(1200, function(t){
+      $("ringNum").textContent = String(Math.round(target * t));
+      $("ringArc").setAttribute("stroke-dashoffset", String(C * (1 - target / 100 * t)));
+    });
+    tween(1000, drawRadar);
+    var bars = document.querySelectorAll("#rows .bar i");
+    setTimeout(function(){
+      for (var n = 0; n < bars.length; n++) bars[n].style.width = bars[n].getAttribute("data-w") + "%";
+    }, reduce ? 0 : 250);
+  }
+
+  /* the plan for the weakest area */
+  function renderPlan(){
+    var first = result.order[0], second = result.order[1];
+    var allStrong = first.s >= 5;
+    var c = first.c;
+    var box = $("plan");
+    var kick = allStrong ? "Sharpen this next" : "Fix this first";
+    var html = '<p class="kick">' + kick + '</p><h2></h2><p class="why"></p>';
+    html += '<ol class="actions">' + c.actions.map(function(){ return '<li><span class="t"></span><em></em></li>'; }).join("") + '</ol><p class="after"></p>';
+    box.innerHTML = html;
+    box.querySelector("h2").textContent = c.label + ", " + first.s + " of 6";
+    box.querySelector(".why").textContent = c.why;
+    var items = box.querySelectorAll(".actions li");
+    c.actions.forEach(function(a, i){
+      items[i].querySelector(".t").textContent = a[0];
+      items[i].querySelector("em").textContent = a[1];
+    });
+    box.querySelector(".after").innerHTML = "<b></b>";
+    box.querySelector(".after b").textContent = "Your free Operations 101 course has a lesson on " + c.topic + ".";
+    var nx = document.createElement("span");
+    nx.textContent = " After that, look at " + second.c.label.toLowerCase() + ".";
+    box.querySelector(".after").appendChild(nx);
+  }
+
+  heroIntro();
+})();
+</script>
+
+</body>
+</html>
